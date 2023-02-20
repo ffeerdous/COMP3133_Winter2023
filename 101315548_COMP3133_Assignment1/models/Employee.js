@@ -17,7 +17,7 @@ const EmployeeSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    //index: true, //Optional if unique is defined
+    index: true, //Optional if unique is defined
     unique: [true, "Duplicate Email Not allowed"],
     trim: true,
     uppercase: true,

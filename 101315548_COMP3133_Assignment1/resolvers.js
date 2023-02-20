@@ -1,6 +1,10 @@
 const Employee = require('./models/Employee');
+const { merge } = require('lodash');
+const User = require('./models/User')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
-exports.resolvers = {
+const resolver1 = {
     Query: {
         getEmployees: async (parent, args) => {
             return Employee.find({})
@@ -69,3 +73,30 @@ exports.resolvers = {
       }
     }
 }
+
+const resolver2 = {
+    Query: {
+        login: async (_, { username, password }) => {
+            const user = await User.findOne({ username });
+            if (!user) {
+              throw new Error('Invalid login credentials');
+            }
+            const isValidPassword = await bcrypt.compare(password, user.password);
+            if (!isValidPassword) {
+              throw new Error('Invalid login credentials');
+            }
+            return { user};
+          }
+    },
+
+    Mutation: {
+        signup: async (_, { username, email, password }) => {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            const user = await User.create({ username, email, password: hashedPassword });
+            return { user };
+        }
+    }
+}
+
+const resolvers = merge(resolver1, resolver2);
+module.exports = resolvers;

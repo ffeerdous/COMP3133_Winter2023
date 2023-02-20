@@ -4,8 +4,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 //import typedefs and resolvers
-const TypeDefs = require('./schema')
-const Resolvers = require('./resolvers')
+const typeDefs = require('./schema')
+const resolvers = require('./resolvers')
 
 //import ApolloServer
 const { ApolloServer } = require('apollo-server-express')
@@ -29,8 +29,8 @@ mongoose.connect(mongodb_atlas_url, {
 
 //Define Apollo Server
 const server = new ApolloServer({
-  typeDefs: TypeDefs.typeDefs,
-  resolvers: Resolvers.resolvers
+    typeDefs,
+    resolvers
 })
 
 //Define Express Server

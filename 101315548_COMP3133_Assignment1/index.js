@@ -24,7 +24,7 @@ mongoose.connect(mongodb_atlas_url, {
 }).then(success => {
   console.log('Success Mongodb connection')
 }).catch(err => {
-  console.log('Error Mongodb connection')
+  console.log(err)
 });
 
 //Define Apollo Server

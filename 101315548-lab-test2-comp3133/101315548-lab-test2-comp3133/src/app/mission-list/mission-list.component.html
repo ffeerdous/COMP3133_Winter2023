@@ -1,0 +1,26 @@
+<div class="mt-4">
+    <h2>Mission List</h2>
+    <div class="col-md-6 mb-4 mx-auto">
+    <div class="form-group">
+      <label for="launchYear">Filter by Launch Year:</label>
+      <div class="input-group">
+        <input type="text" class="form-control" id="launchYear" [(ngModel)]="launchYear" placeholder="Enter year">
+        <div class="input-group-append">
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 mb-4" *ngFor="let mission of missionfilter">
+        <div class="container-sm border p-3">
+        <h4>
+            <a [routerLink]="['/missiondetails', mission.flight_number]">{{ mission.mission_name }}</a>
+        </h4>
+          <p><strong>Launch Year:</strong> {{ mission.launch_year }}</p>
+          <p><strong>Details:</strong> {{ mission.details }}</p>
+          <img src="{{ mission.links.mission_patch_small }}" alt="{{ mission.mission_name }} Patch" width="75px">
+        </div>
+      </div>
+    </div>
+  </div>
+  

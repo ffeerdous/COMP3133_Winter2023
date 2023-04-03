@@ -1,0 +1,22 @@
+<div *ngIf="mission" class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h2>{{ mission.mission_name }}</h2>
+        <img src="{{ mission.links.mission_patch }}" alt="{{ mission.mission_name }} logo" class="img-fluid w-50">
+        <br>
+        <p><strong>Flight Number:</strong> {{ mission.flight_number }}</p>
+        <p><strong>Launch Date:</strong> {{ mission.launch_date_utc | date:'medium' }}</p>
+        <p><strong>Launch Details:</strong> {{ mission.details }}</p>
+        <p><strong>Rocket:</strong> {{ mission.rocket.rocket_name }}</p>
+        <p><strong>Launch Site:</strong> {{ mission.launch_site.site_name_long }}</p>
+        <p><strong>Launch Success:</strong> {{ mission.launch_success ? 'Yes' : 'No' }}</p>
+        <p *ngIf="mission.launch_failure_details"><strong>Failure Reason:</strong> {{ mission.launch_failure_details.reason }}</p>
+        <div class="icons">
+            <p><strong>More Info on Launch details: </strong></p>
+            <a *ngIf="mission.links.wikipedia" href="{{ mission.links.wikipedia }}"><i class="fa fa-wikipedia-w"></i></a>
+            <a *ngIf="mission.links.article_link" href="{{ mission.links.article_link }}"><i class="fa fa-globe" aria-hidden="true"></i></a>
+            <a *ngIf="mission.links.video_link" href="{{ mission.links.video_link }}"><i class="fa fa-youtube-play"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>

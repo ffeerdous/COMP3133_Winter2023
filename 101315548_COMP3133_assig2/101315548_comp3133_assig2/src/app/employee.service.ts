@@ -22,6 +22,7 @@ export class EmployeeService {
     })
    }
 
+   // Gets All the Employees
   getEmployees(): Observable<any>{
     return from(
       this.client.query({
@@ -41,6 +42,43 @@ export class EmployeeService {
       })
     ).pipe(
       map((result: ApolloQueryResult<any>) => result.data ? result.data.getEmployees : null)
+    );
+  }
+
+  // Adds new employees
+  addEmployee(firstname: string, lastname: string, email: string, gender: string, city: string, designation: string,  salary: number): Observable<any> {
+    const mutation = gql`
+      mutation AddEmployee($firstname: String!, $lastname: String!, $email: String!, $gender: String!, $city: String!, $designation: String!, $salary: Float!) {
+        addEmployee(firstname: $firstname, lastname: $lastname, email: $email, gender: $gender, city: $city, designation: $designation, salary: $salary) {
+          firstname
+          lastname
+          email
+          gender
+          city
+          designation
+          salary
+        }
+      }   
+    `;
+  
+    return from(
+      this.client.mutate<any>({
+        mutation: mutation,
+        variables: {
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+          gender: gender,
+          city: city,
+          designation: designation,
+          salary: salary
+        }
+      }).catch(error => {
+        console.log(error);
+        throw error;
+      })
+    ).pipe(
+      map(result => result.data.addEmployee)
     );
   }
 }

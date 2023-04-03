@@ -1,1 +1,63 @@
-<p>add-employee works!</p>
+<div class="container" *ngIf="!employeeAdded">
+  <h2>Add New Employee</h2>
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="firstname">First Name</label>
+      <input type="text" formControlName="firstname" class="form-control">
+      <div *ngIf="employeeForm.get('firstname')?.invalid && employeeForm.get('firstname')?.touched" class="text-danger">
+        First Name is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastname">Last Name</label>
+      <input type="text" formControlName="lastname" class="form-control">
+      <div *ngIf="employeeForm.get('lastname')?.invalid && employeeForm.get('lastname')?.touched" class="text-danger">
+        Last Name is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" formControlName="email" class="form-control">
+      <div *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched" class="text-danger">
+        Invalid Email
+      </div>
+      </div>
+    <div class="form-group">
+      <label for="city">City</label>
+      <input type="text" formControlName="city" class="form-control" pattern="[A-Za-z]+">
+      <div *ngIf="employeeForm.get('city')?.invalid && employeeForm.get('city')?.touched" class="text-danger">
+        City is invalid
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Designation:</label>
+      <input type="text" formControlName="designation" class="form-control" pattern="[A-Za-z]+">
+      <div *ngIf="employeeForm.get('designation')?.invalid && employeeForm.get('designation')?.touched" class="text-danger">
+        Designation is invalid
+      </div>
+    </div>
+    <div class="form-group">
+        <label>Gender:</label>
+        <select formControlName="gender" class="form-control">
+            <option value="">Select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+        <div *ngIf="employeeForm.get('gender')?.invalid && employeeForm.get('gender')?.touched" class="text-danger">
+          Gender is required
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Salary:</label>
+        <input type="number" formControlName="salary" class="form-control">
+        <div *ngIf="employeeForm.get('salary')?.invalid && employeeForm.get('salary')?.touched" class="text-danger">
+          Salary is required
+        </div>
+    </div>
+    <br>
+    <div>
+    <button type="submit" [disabled]="employeeForm.invalid" class="btn btn-success">Submit</button>
+    </div>
+  </form>
+</div>

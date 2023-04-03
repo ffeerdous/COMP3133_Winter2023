@@ -1,6 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { EmployeeService } from './employee.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +6,4 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  employees: any;
-
-  constructor(private employeeService: EmployeeService, private fb: FormBuilder) {
-    this.employees = this.employeeService.getEmployees();
-  }
 }

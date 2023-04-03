@@ -43,7 +43,7 @@ export class AddEmployeeComponent {
       }, error => {
         console.log(error);
       });
-      this.router.navigate(['/'], { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/'], { skipLocationChange: false }).then(() => {
         window.location.reload();
       });
   }

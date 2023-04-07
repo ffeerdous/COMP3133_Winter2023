@@ -1,0 +1,32 @@
+<div class="container">
+    <h2>Sign Up</h2>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" formControlName="username" required>
+        <div *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched" class="text-danger">
+          Please enter a valid username.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" class="form-control" id="email" formControlName="email" required>
+        <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="text-danger">
+          Please enter a valid email address.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" formControlName="password" required>
+        <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="text-danger">
+          Please enter a valid password.
+        </div>
+      </div>
+      <div *ngIf="errorMessage" class="text-danger">
+        {{ errorMessage }}
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary mr-2">Submit</button>
+      <button type="button" class="btn btn-secondary" routerLink="/app-login">Cancel</button>
+    </form>
+  </div>  

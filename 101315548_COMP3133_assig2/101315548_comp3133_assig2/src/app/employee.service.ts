@@ -81,4 +81,90 @@ export class EmployeeService {
       map(result => result.data.addEmployee)
     );
   }
+
+  //Delete Employee
+  deleteEmployee(id: string): Observable<any> {
+    const mutation = gql`
+      mutation DeleteEmployee($deleteEmployeeId: String!) {
+        deleteEmployee(id: $deleteEmployeeId) {
+          id
+        }
+      }
+    `;
+  
+    return from(
+      this.client.mutate<any>({
+        mutation: mutation,
+        variables: {
+          deleteEmployeeId: id
+        }
+      }).catch(error => {
+        console.log(error);
+        throw error;
+      })
+    ).pipe(
+      map(result => result.data.deleteEmployee)
+    );
+  }
+
+  //Login
+  login(username: string, password: string): Observable<any> {
+    const query = gql`
+      query login($username: String!, $password: String!) {
+        login(username: $username, password: $password) {
+          user {
+            username
+            password
+          }
+        }
+      }
+    `;
+    
+    return from(
+      this.client.query<any>({
+        query: query,
+        variables: {
+          username: username,
+          password: password
+        }
+      }).catch(error => {
+        console.log(error);
+        throw error;
+      })
+    ).pipe(
+      map(result => result.data.login)
+    );
+  }
+
+  //sign up
+  signup(username: string, email: string, password: string): Observable<any> {
+    const mutation = gql`
+      mutation Signup($username: String!, $email: String!, $password: String!) {
+        signup(username: $username, email: $email, password: $password) {
+          user {
+            username
+            email
+            password
+          }
+        }
+      }
+    `;
+  
+    return from(
+      this.client.mutate<any>({
+        mutation: mutation,
+        variables: {
+          username: username,
+          email: email,
+          password: password
+        }
+      }).catch(error => {
+        console.log(error);
+        throw error;
+      })
+    ).pipe(
+      map(result => result.data.signup)
+    );
+  }
+
 }

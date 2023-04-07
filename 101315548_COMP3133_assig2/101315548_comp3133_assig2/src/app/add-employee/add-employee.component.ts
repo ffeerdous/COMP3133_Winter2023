@@ -18,7 +18,7 @@ export class AddEmployeeComponent {
   this.employeeForm = this.fb.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email, Validators.pattern(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/)]],
       gender: ['', Validators.required],
       city: ['', Validators.required],
       designation: ['', Validators.required],

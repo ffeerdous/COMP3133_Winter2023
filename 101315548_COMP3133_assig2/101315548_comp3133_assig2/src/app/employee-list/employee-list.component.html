@@ -41,10 +41,11 @@
             <td class="table-primary">{{ employee.city }}</td>
             <td class="table-primary">{{ employee.designation }}</td>
             <td class="table-primary">{{ employee.gender }}</td>
-            <td class="table-primary">{{ employee.salary }}</td>
+            <td class="table-primary">{{ employee.salary | currency:'USD':'symbol':'1.2-2' }}</td>
             <td class="table-primary">
-              <a href="#" class="btn btn-primary"><i class="fas fa-edit mr-5"></i></a>
-              <button class="btn btn-danger" (click)="onDelete(employee.id)"><i class="fas fa-trash ml-5"></i></button>
+              <button class="btn btn-primary" routerLink="/app-update-employee/{{employee.email}}"><i class="fas fa-edit"></i></button>
+              <button class="btn btn-danger" (click)="onDelete(employee.email)"><i class="fas fa-trash"></i></button>
+              <button class="btn btn-success" routerLink="/app-employee-details/{{employee.email}}"><i class="fa fa-file" aria-hidden="true"></i></button>
             </td>
           </tr>
         </tbody>

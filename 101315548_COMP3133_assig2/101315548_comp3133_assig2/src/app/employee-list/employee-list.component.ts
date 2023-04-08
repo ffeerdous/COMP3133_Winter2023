@@ -20,11 +20,12 @@ export class EmployeeListComponent {
   }
 
   // Pop-up for emplyee deletation
-  onDelete(id: string){
+  onDelete(email: string){
     if (confirm('Are you sure you want to delete this employee?')) {
-      this.employeeService.deleteEmployee(id).subscribe(() => {
+      this.employeeService.deleteEmployee(email).subscribe(() => {
         this.employees = this.employeeService.getEmployees();
         window.alert('Employee has been deleted!');
+        window.location.reload();
       });
     }
   }

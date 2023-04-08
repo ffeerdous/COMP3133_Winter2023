@@ -14,6 +14,17 @@ const resolver1 = {
         },
         getEmployeeByGender: async (parent, args) => {
             return Employee.find({"gender" : args.gender})
+        },
+        getEmployeeByEmail: async (parent, args) => {
+            try {
+              const employee = await Employee.findOne({ email: args.email });
+              if (!employee) {
+                throw new Error("Employee not found");
+              }
+              return employee;
+            } catch (err) {
+              throw new Error(err);
+            }
         }
     },
 
@@ -35,41 +46,39 @@ const resolver1 = {
         },
         updateEmployee: async (parent, args) => {
             console.log(args)
-            if (!args.id){
+            if (!args.email){
                 return;
             }
-
-            return await Employee.findOneAndUpdate(
-            {
-                _id: args.id
-            },
-            {
-                $set: {
+          
+            try {
+              const updatedEmployee = await Employee.findOneAndUpdate(
+                { email: args.email },
+                {
+                  $set: {
                     firstname: args.firstname,
                     lastname: args.lastname,
-                    email: args.email,
                     gender: args.gender,
                     city: args.city,
                     designation: args.designation,
                     salary: args.salary
-                }
-            }, {new: true}, (err, employee) => {
-                if (err) 
-                {
-                    console.log('Something went wrong when updating the employee');
-                } else 
-                {
-                    return employee
-                }
+                  }
+                },
+                { new: true }
+              );
+          
+              return updatedEmployee;
+            } catch (err) {
+              console.log("Something went wrong when updating the employee", err);
+              throw new Error("Failed to update employee");
             }
-        );
-      },
-      deleteEmployee: async (parent, args) => {
-        console.log(args)
-        if (!args.id){
-            return JSON.stringify({status: false, "message" : "No ID found"});
+        },
+      deleteEmployee: async (parent, { email }) => {
+        const deletedEmployee = await Employee.findOneAndDelete({ email })
+        if (deletedEmployee) {
+          return deletedEmployee
+        } else {
+          throw new Error(`Employee with email ${email} not found`)
         }
-        return await Employee.findByIdAndDelete(args.id)
       }
     }
 }

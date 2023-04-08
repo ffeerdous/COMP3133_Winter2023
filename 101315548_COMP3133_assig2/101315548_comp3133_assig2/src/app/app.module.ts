@@ -9,6 +9,8 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { UserSignupComponent } from './user-signup/user-signup.component';
+import { UpdateEmployeeComponent } from './update-employee/update-employee.component';
+import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { UserSignupComponent } from './user-signup/user-signup.component';
     AddEmployeeComponent,
     EmployeeListComponent,
     UserLoginComponent,
-    UserSignupComponent
+    UserSignupComponent,
+    UpdateEmployeeComponent,
+    EmployeeDetailsComponent
   ],
   imports: [
     BrowserModule,

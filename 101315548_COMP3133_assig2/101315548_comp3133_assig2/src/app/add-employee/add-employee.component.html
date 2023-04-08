@@ -1,3 +1,13 @@
+<!-- Navbar header-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Employee Management System</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+
 <div class="container" *ngIf="!employeeAdded">
   <h2>Add New Employee</h2>
 <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
@@ -21,7 +31,7 @@
       <div *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched" class="text-danger">
         Invalid Email
       </div>
-      </div>
+    </div>
     <div class="form-group">
       <label for="city">City</label>
       <input type="text" formControlName="city" class="form-control" pattern="[A-Za-z]+">
@@ -52,7 +62,7 @@
         <label>Salary:</label>
         <input type="number" formControlName="salary" class="form-control">
         <div *ngIf="employeeForm.get('salary')?.invalid && employeeForm.get('salary')?.touched" class="text-danger">
-          Salary is required
+          Salary is Invalid
         </div>
     </div>
     <br>

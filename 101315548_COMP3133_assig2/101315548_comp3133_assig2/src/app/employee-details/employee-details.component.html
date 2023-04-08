@@ -1,0 +1,25 @@
+<!-- Navbar header-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Employee Management System</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+<div class="container">
+    <div class="card my-5">
+      <div class="card-body">
+        <h2 class="card-title">Employee Details</h2>
+        <div class="card-text">
+          <p><strong>Name:</strong> {{employee.firstname}} - {{employee.lastname}}</p>
+          <p><strong>Email:</strong> {{employee.email}}</p>
+          <p><strong>Gender:</strong> {{employee.gender}}</p>
+          <p><strong>City:</strong> {{employee.city}}</p>
+          <p><strong>Designation:</strong> {{employee.designation}}</p>
+          <p><strong>Salary:</strong> {{employee.salary}}</p>
+        </div>
+        <a class="btn btn-success" routerLink="/app-employee-list">Back to Main Page</a>
+      </div>
+    </div>
+  </div>

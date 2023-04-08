@@ -7,6 +7,8 @@ import { Observable, from, map } from 'rxjs';
   providedIn: 'root'
 })
 export class EmployeeService {
+
+  [x: string]: any;
   private client: ApolloClient<any>;
 
   constructor() {
@@ -83,11 +85,11 @@ export class EmployeeService {
   }
 
   //Delete Employee
-  deleteEmployee(id: string): Observable<any> {
+  deleteEmployee(email: string): Observable<any> {
     const mutation = gql`
-      mutation DeleteEmployee($deleteEmployeeId: String!) {
-        deleteEmployee(id: $deleteEmployeeId) {
-          id
+      mutation DeleteEmployee($email: String!) {
+        deleteEmployee(email: $email) {
+          email
         }
       }
     `;
@@ -96,7 +98,7 @@ export class EmployeeService {
       this.client.mutate<any>({
         mutation: mutation,
         variables: {
-          deleteEmployeeId: id
+          email: email
         }
       }).catch(error => {
         console.log(error);
@@ -167,4 +169,83 @@ export class EmployeeService {
     );
   }
 
+  //Update Employee
+  updateEmployee(email: string, firstname: string, lastname: string, gender: string, city: string, designation: string, salary: number): Observable<any> {
+    const mutation = gql`
+      mutation UpdateEmployee($email: String!, $firstname: String!, $lastname: String!, $gender: String!, $city: String!, $designation: String!, $salary: Float!) {
+        updateEmployee(email: $email, firstname: $firstname, lastname: $lastname, gender: $gender, city: $city, designation: $designation, salary: $salary) {
+          firstname
+          lastname
+          gender
+          city
+          designation
+          salary
+        }
+      }   
+    `;
+    
+    if (!this['isUpdating']) {
+      this['isUpdating'] = true;
+      return from(
+        this.client.mutate<any>({
+          mutation: mutation,
+          variables: {
+            email: email,
+            firstname: firstname,
+            lastname: lastname,
+            gender: gender,
+            city: city,
+            designation: designation,
+            salary: salary
+          }
+        }).catch(error => {
+          console.log(error);
+          throw error;
+        })
+      ).pipe(
+        map(result => {
+          this['isUpdating'] = false;
+          return result.data.updateEmployee;
+        })
+      );
+    } else {
+      return throwError(new Error("Update already in progress."));
+    }
+  }
+
+  //Get Employee by email
+  getEmployeeByEmail(email: string): Observable<any> {
+    const query = gql`
+      query GetEmployeeByEmail($email: String!) {
+        getEmployeeByEmail(email: $email) {
+          firstname
+          lastname
+          email
+          gender
+          city
+          designation
+          salary
+        }
+      }
+    `;
+  
+    return from(
+      this.client.query<any>({
+        query: query,
+        variables: {
+          email: email
+        }
+      }).catch(error => {
+        console.log(error);
+        throw error;
+      })
+    ).pipe(
+      map(result => result.data.getEmployeeByEmail)
+    );
+  }
 }
+
+function throwError(arg0: Error): Observable<any> {
+  throw new Error('Function not implemented.');
+}
+

@@ -16,6 +16,7 @@ const typeDefs1 = gql `
         getEmployees: [Employee]
         getEmployeeByID(id: ID!): Employee
         getEmployeeByGender(gender: String!): [Employee]
+        getEmployeeByEmail(email: String!): Employee
     }
 
     type Mutation {
@@ -27,16 +28,16 @@ const typeDefs1 = gql `
             designation: String!
             salary: Float!): Employee
 
-        updateEmployee(id: String!
+        updateEmployee(
+            email: String!
             firstname: String!
             lastname: String!
-            email: String!
             gender: String!
             city: String!
             designation: String!
             salary: Float!): Employee
         
-        deleteEmployee(id: String!): Employee
+        deleteEmployee(email: String!): Employee
     }
 `;
 
